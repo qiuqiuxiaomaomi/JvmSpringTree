@@ -285,3 +285,14 @@ Java的内存模型与线程
 <pre>
 线程安全与锁优化
 </pre>
+
+Spring 框架
+
+![](https://i.imgur.com/ACrPuI2.jpg)
+
+<pre>
+  Spring的设计理念
+     其实Spring就是面向Bean的编程。Bean在Spring中才是真正的主角。
+
+     Spring解决了一个非常关键的问题，它可以让你把对象之间的依赖关系转而用配置文件来管理，也就是它的依赖注入机制，而这个注入关系在一个叫IOC的容器中管理，而在IOC容器中又是被Bean包裹的对象，Spring正是通过把对象包装在BEAN中从而达到管理这些 对象以及一些列额外操作的目的。
+</pre>
