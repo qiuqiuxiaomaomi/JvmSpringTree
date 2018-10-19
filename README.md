@@ -286,6 +286,38 @@ Java的内存模型与线程
 线程安全与锁优化
 </pre>
 
+Tomcat Servlet
+
+![](https://i.imgur.com/gtp5iLR.jpg)
+
+Servlet原理解析
+Tomcat系统架构
+
+![](https://i.imgur.com/zWiOxdW.jpg)
+
+Jetty系统架构![](https://i.imgur.com/O1D1enP.jpg)
+
+<pre>
+Tomcat VS Jetty
+
+  架构比较：
+    从架构上来说Jetty比Tomcat更简单
+    Jetty架构：
+         所有组件都是基于Handler来实现的，主要的功能扩展都是基于Handler来实现;	
+    Tomcat架构：
+	     以多级容器构建起来，
+	
+       从设计模板来说，Jetty中的Handler的设计实际上就是一个责任链模式，另外一个用到的设计模式就是观察者模式，Jetty很容易的被扩展和裁剪。
+       相比之下，Tomcat臃肿很多，Tomcat的整体设计更加复杂，Tomcat的核心是它的容器设计，使得开发人员如果想要扩展TOMCAT,就必须先要了解TOMCAT的整体结构，然后才能按照它的规范来扩展，从表面上看，Tomcat的功能要比Jetty强大，因为Tomcat帮你做了很多工作，而JETTY只告诉你能怎么做，如何做由你去实现。
+
+    性能比较：
+        Tomcat在处理少数非常繁忙的连接上更有优势，也就是说连接的生命周期短，Tomcat总体性能更高
+        Jetty正好相反，Jetty可以同时处理大量连接而且可以长时间保持这些连接，例如一些WEB聊天应用就非常适合用Jetty，淘宝
+             的旺旺就用Jetty
+        由于Jetty的架构非常简单，作为服务器它可以按需加载组件，这样不需要的就可以去掉，无形中可以减少服务器本身的内存开销，处理一次请求也可以减少产生的零时对象这样性能也会提高。 Jetty默认使用NIO技术，在处理 IO请求上更占优势，而Tomcat模式使用BIO，在
+	    处理静态资源时，Tomcat的性能较差。
+</pre>
+
 Spring 框架
 
 ![](https://i.imgur.com/ACrPuI2.jpg)
