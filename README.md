@@ -380,6 +380,45 @@ Mybatis框架系统
 
 ![](https://i.imgur.com/XEkX16N.jpg)
 
-<pre>
+![](https://i.imgur.com/u3WuaoT.jpg)
 
+![](https://i.imgur.com/06acNKu.jpg)
+
+CDN 静态化失效问题
+
+![](https://i.imgur.com/hdqITkM.jpg)
+
+CDN分级
+
+![](https://i.imgur.com/klP2bdK.jpg)
+
+<pre>
+大浏览量系统的静态化架构设计
+    Java系统的弱点：
+         1）不擅长处理大量的连接请求，每个连接消耗的内存较多
+         2）Servlet容器解析HTTP较慢
+    1）如何改造动态系统
+         1）动静分离
+         2）动态内容结构化
+		 3）组装动态内容：ESI, CSI
+		 
+	2）几种静态化方案的设计与选择
+         1）Nginx + Cache + Java结构的虚拟机单机部署	
+            优点：
+               1）没有网络瓶颈，不需要改造网络
+	           2）机器增加，也没有网卡瓶颈
+	           3）机器数增多，故障风险减少
+            缺点：
+               1）机器增加，缓存命中率下降
+               2）缓存分散，失效难度增加
+               3）Cache和JBOSS都会争抢内存
+
+         2) Nginx + Cache + Java结构实体机单机部署
+            优点:
+               1）既没有网络瓶颈，也能使用大内存
+	           2）减少Varnish机器，提高命中率
+	           3）提升命中率，能较少GZIP压缩
+	           5）减少Cache失效的压力
+         3) CDN化
+	        实现CDN的分级
 </pre>
