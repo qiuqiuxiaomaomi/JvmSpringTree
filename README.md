@@ -327,3 +327,39 @@ Spring 框架
   在一起便于其他组件使用。	
 
 </pre>
+
+![](https://i.imgur.com/Au9D1V0.jpg)
+
+<pre>
+IOC容器：
+    IOC容器实际上是Context组件结合Core,Bean组件共同构建的一个Bean的关系网。
+	如果构建关系网，就在AbstractApplicationContext类的refresh方法
+
+IOC容器的扩展性
+    对Spring的Ioc容器来说，主要有BeanFactoryPostProcessor和BeanPostProcessor，它们分别在构建BeanFactory和构建Bean对象时调用，还有就是InitializingBean和DisposableBean，它们分别在Bean实例创建和销毁时调用，用户可以实现在这些接口中定义的方法，Spring会在适当的时候调用它们，这些扩展点通常也是我们使用Spring来完成特定任务的地方。Spring的所有特性功能都是基于IOC容器工作的。	
+
+代理
+
+Spring AOP
+
+</pre>
+
+SpringMVC
+
+DispatcherServlet初始化工作
+
+![](https://i.imgur.com/6nBGU8L.jpg)
+<pre>
+DispatcherServlet初始化工作
+   DispatcherServlet类继承了HttpServlet，在Servlet的init方法调用时DispatcherServlet执行SpringMVC的初始化工作
+   1) initMultipartResolver：初始化MultipartResolver，用于处理文件上传服务，如果有文件上传，会将当前的HttpServletRequest包装成
+   2) DefaultMultipartHttpServletRequest，并且将每个上传的内容封装成CommonsMultipartFile对象。
+   3) initLocaleResolver：用于处理应用的国际化问题，通过解析请求的Locale和设置相应的Locale来控制应用中的字符编码问题。
+   5) initThemeResolver: 用于定义一个主题
+   6) initHandlerMappings:用于定义用户设置的请求映射关系，例如将用户请求的URL映射程一个个Handler。
+                   	默认有BeanNameUrlHandlerMapping和DefaultAnnotationHandlerMapping
+   7) initHandlerAdapters:用于根据Handler的类型定义不同的处理机制，例如 定义中将URL映射程一个Controller实例，
+   8) initHandlerExceptionResolvers:当Handler处理出错时，会通过这个Handler来统一处理，默认的实现类是                           SimpleMappingExceptionResolver,将错误日志记录在log文件中，并且转到默认的错误页面
+   9) initRequestToViewNameTranslators：将指定的viewName按照定义的RequstToViewNameTranlator替换成想要的格式，如加上前缀或者后缀。
+   10) initViewResolvers:用于将View解析成页面。
+</pre>
