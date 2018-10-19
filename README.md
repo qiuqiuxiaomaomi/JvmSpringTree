@@ -363,3 +363,23 @@ DispatcherServlet初始化工作
    9) initRequestToViewNameTranslators：将指定的viewName按照定义的RequstToViewNameTranlator替换成想要的格式，如加上前缀或者后缀。
    10) initViewResolvers:用于将View解析成页面。
 </pre>
+
+Mybatis框架系统
+
+![](https://i.imgur.com/wWnyASW.jpg)
+
+<pre>
+Mybatis框架系统
+    Mybatis通过SQL MAP将JAVA对象映射成SQL语句，将结果集再转化成Java对象。
+    Mybatis主要完成两件事情
+        1）根据JDBC规范建立与数据库的连接。
+        2）通过反射打通Java对象与数据库参数交互之间相互转化的关系。
+
+    Mybatis框架的一个重要组成部分就是SqlMap配置文件，SqlMap配置文件是Statement语句。
+</pre>
+
+![](https://i.imgur.com/XEkX16N.jpg)
+
+<pre>
+
+</pre>
