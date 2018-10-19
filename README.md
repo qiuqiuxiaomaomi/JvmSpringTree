@@ -290,9 +290,40 @@ Spring 框架
 
 ![](https://i.imgur.com/ACrPuI2.jpg)
 
+![](https://i.imgur.com/M29bUdD.jpg)
+
 <pre>
   Spring的设计理念
      其实Spring就是面向Bean的编程。Bean在Spring中才是真正的主角。
 
      Spring解决了一个非常关键的问题，它可以让你把对象之间的依赖关系转而用配置文件来管理，也就是它的依赖注入机制，而这个注入关系在一个叫IOC的容器中管理，而在IOC容器中又是被Bean包裹的对象，Spring正是通过把对象包装在BEAN中从而达到管理这些 对象以及一些列额外操作的目的。
+
+  核心组件如何协同工作：
+    如果把Bean比作一场演出的演员，Context就是这场演出的舞台背景，而Core就是演出的道具了，
+	Context就是Bean关系的集合，这个关系集合又叫IOC容器
+	Core就是发现，建立维护每个Bean之间的关系所需要的一系列工具
+
+  Bean组件：
+    org.springframework.beans包下。这个包下的所有类主要解决三件事情。
+	1）Bean的定义
+	2）Bean的创建
+	3）Bean的解析
+	Bean的创建是典型的工厂模式
+
+  Context组件：
+     org.springframework.context包下。
+	 ApplicationContext是Context的顶级父类，ApplicationContext继承了BeanFactory，这也说明了Spring容器中运行的主要对象是Bean，另外ApplicationContext
+	 继承了ResourceLoader，是的ApplicationContext可以访问任何外部资源。
+	 总体来说ApplicationContext必须完成以下几件事情：
+            1）标识一个应用环境
+            2）利用BeanFactory创建Bean对象
+            3）保存对象关系表
+            5）能够捕获各种事件
+        Context作为Spring的IOC容器 ，基本上整合了Spring的大部分功能，或者说是大部分功能的基础。	
+
+  Core组件
+    Core组件作为Spring的核心组件，其中包含了很多关键类，一个重要的组成部分就是定了资源的访问方式。
+    Context组件把资源的加载，解析，描述工作委托给了ResourcePatternResolver类来完成，它把资源的加载，解析，资源的定义整合
+  在一起便于其他组件使用。	
+
 </pre>
