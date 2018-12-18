@@ -454,3 +454,22 @@ CDN分级
          3) CDN化
 	        实现CDN的分级
 </pre>
+
+<pre>
+Spring的注解机制
+
+      @Configuration处理器 ConfigurationClassPostProcessor
+      @Autowired, @Value, @Inject 处理器 AutowiredAnnotationBeanPostProcessor
+      @Required处理器 RequireBeanPostProcessor
+      @PostConstruct, @PreDestroy, @Resource 处理器CommonAnnotationBeanPostProcessor
+      PersistenceAnnotationBeanPostProcessor
+      @EventListener处理器 EventListenerMethodProcessor
+
+      Spring框架的核心就是IOC,通过controller一类注解的bean的实例化过程可以大体总结spring注解的工作原理：
+
+       1）利用asm技术扫描class文件，转化成Springbean结构，把符合扫描规则的（主要是是否有相关的
+          注解标注，例如@Component）bean注册到Spring 容器中beanFactory
+       2）注册处理器，包括注解处理器
+       3）实例化处理器（包括注解处理器），并将其注册到容器的beanPostProcessors列表中
+       5）创建bean的过程中，属性注入或者初始化bean时会调用对应的注解处理器进行处理
+</pre>
