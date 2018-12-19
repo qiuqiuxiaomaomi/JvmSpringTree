@@ -473,3 +473,19 @@ Spring的注解机制
        3）实例化处理器（包括注解处理器），并将其注册到容器的beanPostProcessors列表中
        5）创建bean的过程中，属性注入或者初始化bean时会调用对应的注解处理器进行处理
 </pre>
+
+<pre>
+SpringBean的生命周期：
+
+      1）Instance实例化
+      2）设置属性值
+      3）调用BeanNameAware的setBeanName方法
+      5）调用BeanPostProcessor的预初始化方法
+      6）调用InitializationBean的afterPropertiesSet方法
+      7）调用定制的初始化方法 callCustom的init-method
+      8）调用BeanPostProcessor的后初始化方法
+      9）Bean可以使用了
+      10）容器关闭
+      11）调用DisposableBean的destroy方法
+      12）调用定制的销毁方法CallCustom的destroy-method方法
+</pre>
