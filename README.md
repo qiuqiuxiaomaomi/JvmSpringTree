@@ -489,3 +489,36 @@ SpringBean的生命周期：
       11）调用DisposableBean的destroy方法
       12）调用定制的销毁方法CallCustom的destroy-method方法
 </pre>
+
+BeanFactory的继承关系
+
+![](https://i.imgur.com/8zXVojV.png)
+
+BeanFactory 与 ApplicationContext
+
+![](https://i.imgur.com/3u4t1wX.png)
+
+<pre>
+        ApplicationContext继承了BeanFactory，BeanFactory是Spring中比较原始
+    的Factory，它不支持AOP、Web等Spring插件，而ApplicationContext不仅包含
+    了BeanFactory的所有功能，还支持Spring的各种插件，还以一种面向框架的方式工作
+    以及对上下文进行分层和实现继承。
+
+        BeanFactory是Spring框架的基础设施，面向Spring本身；而ApplicationContext
+    面向使用Spring的开发者，相比BeanFactory提供了更多面向实际应用的功能，几乎所有场合
+    都可以直接使用ApplicationContext而不是底层的BeanFactory。
+</pre>
+
+BeanFactory中Bean的生命周期
+
+![](https://i.imgur.com/P7WevC5.png)
+
+ApplicationContext中Bean的生命周期
+
+![](https://i.imgur.com/ylihR1P.png)
+
+
+
+Spring中BeanFactory和ApplicationContext的生命周期及其区别详解
+
+https://blog.csdn.net/qq_32651225/article/details/78323527
