@@ -526,3 +526,8 @@ https://blog.csdn.net/qq_32651225/article/details/78323527
 Spring源码分析-深入浅出AOP(图文分析)
 
 https://blog.csdn.net/c_unclezhang/article/details/78769426
+
+
+<pre>
+Spring的自动配置技术与源码分析
+</pre>
