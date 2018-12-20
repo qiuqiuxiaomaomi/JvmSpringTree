@@ -522,3 +522,7 @@ ApplicationContext中Bean的生命周期
 Spring中BeanFactory和ApplicationContext的生命周期及其区别详解
 
 https://blog.csdn.net/qq_32651225/article/details/78323527
+
+Spring源码分析-深入浅出AOP(图文分析)
+
+https://blog.csdn.net/c_unclezhang/article/details/78769426
