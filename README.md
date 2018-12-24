@@ -531,3 +531,147 @@ https://blog.csdn.net/c_unclezhang/article/details/78769426
 <pre>
 Spring的自动配置技术与源码分析
 </pre>
+
+<pre>
+@Profile注解的功能
+</pre>
+
+![](https://i.imgur.com/6KwWcgX.png)
+
+<pre>
+Aware接口
+
+      在实际项目中，你不可避免的要用到Spring 容器本身的功能资源，这时你的Bean 必须要意识
+      到Spring 容器的存在，才能调用Spring 所提供的资源，这就是所谓的Spring Aware。
+
+      其实Spring Aware 本来就是Spring设计用来框架内部使用的，若使用了Spring Aware ，
+      你的Bean 将会和Spring 框架糯合。
+
+      Spring Aware 的目的是为了让Bean 获得Spring 容器的服务。因为ApplicationContext 
+      接口集成了MessageSource 接口、ApplicationEventPublisher 接口和
+      ResourceLoader 接口，所以Bean 继承ApplicationContextAware 可以获得Spring 
+      容器的所有服务，原则上用到什么接口，就实现什么接口！
+</pre>
+
+![](https://i.imgur.com/Nurutxz.png)
+
+<pre>
+ImportSelector
+
+     用法应该是这样：
+        1)定义一个Annotation, Annotation中定义一些属性，到时候会根据这些属性的不同返
+          回不同的class数组。
+        2)在selectImports方法中，获取对应的Annotation的配置，根据不同的配置来初始化
+          不同的class。
+        3)实现ImportSelector接口的对象应该是在Annotation中由@Import Annotation来
+          引入。这也就意味着，一旦启动了注解，那么就会实例化这个对象。
+
+     使用场景：
+             比如我有一个需求，要根据当前环境是测试还是生产来决定我们的日志是输出到本地
+         还是阿里云。
+
+             那假设我定义两个logger：LoggerA 和 LoggerB ,两个logger实现 Logger接口。
+         我们再定义一个Annotation。
+</pre>
+
+<pre>
+@Lazy懒加载
+
+      单实例默认在容器启动的时候创建。
+      懒加载是在类第一次使用的时候创建。
+</pre>
+
+![](https://i.imgur.com/TQvqqYR.png)
+
+<pre>
+@Condition
+@Autowired(require=false)
+@Primary
+</pre>
+
+<pre>
+Processor
+     例如：
+         BeanPostProcessors
+</pre>
+
+![](https://i.imgur.com/dejtpZC.png)
+
+<pre>
+AOP
+</pre>
+
+![](https://i.imgur.com/q01gp9B.png)
+
+![](https://i.imgur.com/lEt7vEn.png)
+
+![](https://i.imgur.com/KpssM1b.png)
+
+<pre>
+异步处理：
+
+      DeferredResult和Callable都是为了异步生成返回值提供基本的支持。简单来说就是一个请求进来，如果你使用了DeferredResult
+      或者Callable，在没有得到返回数据之前，DispatcherServlet和所有Filter就会退出Servlet容器线程，但响应保持打开状态，一
+      旦返回数据有了，这个DispatcherServlet就会被再次调用并且处理，以异步产生的方式，向请求端返回值。
+
+      1）DeferredResult
+
+      2）Callable
+
+      理解Callable 和 Spring DeferredResult
+      https://www.cnblogs.com/aheizi/p/5659030.html
+</pre>
+
+<pre>
+TaskExecutor
+</pre>
+
+父子容器
+
+![](https://i.imgur.com/eFxk3XT.png)
+
+![](https://i.imgur.com/pZqrLj4.png)
+
+<pre>
+Servlet与DispatchServlet
+</pre>
+
+![](https://i.imgur.com/qs63qtZ.png)
+
+源码解读
+
+![](https://i.imgur.com/xW4liQD.png)
+
+![](https://i.imgur.com/D34TOuh.png)
+
+![](https://i.imgur.com/zlCMIor.png)
+
+![](https://i.imgur.com/ndbRwav.png)
+
+![](https://i.imgur.com/9EHWo4g.png)
+
+![](https://i.imgur.com/ndY3b8s.png)
+
+![](https://i.imgur.com/hJNUBzp.png)
+
+![](https://i.imgur.com/7H3qlEI.png)
+
+![](https://i.imgur.com/VOCCH6N.png)
+
+![](https://i.imgur.com/HevcKJc.png)
+
+![](https://i.imgur.com/s5xV7hB.png)
+
+![](https://i.imgur.com/DHNeuFX.png)
+
+![](https://i.imgur.com/OMCBzdr.png)
+
+![](https://i.imgur.com/UMH26XB.png)
+
+![](https://i.imgur.com/aJqvU88.png)
+
+![](https://i.imgur.com/sdGwooe.png)
+
+<pre>
+Spring初始化流程
+</pre>
