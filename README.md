@@ -679,3 +679,39 @@ Spring初始化流程
 <pre>
 Spring整体架构与设计原理
 </pre>
+
+<pre>
+Spring中包的简介
+
+      1）org.springframework.aop
+         Spring的面向切面编程，提供AOP的实现。
+      2）org.springframework.asm
+         Spring的字节码操作框架
+      3）org.springframework.aspects
+      5) org.springframework.beans
+         包含访问配置为文件，创建，管理bean等，是Spring IOC的基础实现。
+      6）org.springframework.context.support
+         Spring Context的扩展支持，用于MVC方面
+      7）org.springframework.context
+         提供在基础IOC功能上的扩展服务，此外还提供许多企业级服务的支持，，有邮件服务，任务
+         调度，JNDI支持，EJB集成，缓存以及多种视图层框架的支持。
+      8）org.springframework.core
+         Spring的核心工具包，其他包依赖此包
+      9）org.springframework.expression
+         Spring表达式语言
+      10）org.springframework.instrument.tomcat
+         Spring对Tomcat连接池的集成
+      11）org.springframework.instrument
+         Spring对服务器的代理接口
+      12）org.springframework.jdbc
+         对JDBC的简单封装
+      13）org.springframework.jms
+         为简化jms api的使用而做的简单封装
+      15）org.springframework.orgm
+         整合第三方的orm实现，如hibernate,ibatis,jdo及spring jpa实现。
+      16）org.springframework.web.servlet
+         对servlet3.0的支持
+      17）org.springframework.web
+         包含web应用开发时，用到spring框架时所需的核心类，包括自动载入WebApplicationContext
+         特性的类，Struts与JSF继承类，文件上传的支持类，Filter类和大量工具辅助类
+</pre>
