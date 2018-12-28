@@ -715,3 +715,20 @@ Spring中包的简介
          包含web应用开发时，用到spring框架时所需的核心类，包括自动载入WebApplicationContext
          特性的类，Struts与JSF继承类，文件上传的支持类，Filter类和大量工具辅助类
 </pre>
+
+<pre>
+Java中对象的分配规则
+
+      1）对象优先分配在Eden去，如果Eden区没有足够的空间时，虚拟机执行一次Minor GC
+      2) 大对象直接进入老年代（大对象是指需要大量内存空间的对象），这样做的目的就是避免
+         在Eden区和两个Survivor区之间发生大量的内存拷贝（新生代采用复制算法收集内存）
+      3）长期存活的对象进入老年代。虚拟机为每个对象定义了一个年龄计数器，如果对象经过了
+         1次Minor GC那么对象就会进入Survivor区，之后每经过一次Minor GC那么对象的年龄
+         加1，直到达到阈值对象进入老年区。
+      5）动态判断对象的年龄，如果Survivor区中相同年龄的所有对象大小的综合大于Survivor
+         空间的一半，年龄大于或等于该年龄的对象可以直接进入老年代。
+      6）空间分配担保，每次进行Minor GC时，JVM会计算Survivor区移动到老年区的对象的平均
+         大小，如果这个值大于老年区的剩余值大小则进行一次Full GC,如果小于检查
+         HandlePromotionFailure设置，如果true则只进行Minor GC,如果false则进行
+         Full GC.
+</pre>
