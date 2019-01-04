@@ -236,19 +236,109 @@ Java内存区域
 <pre>
 虚拟机性能监控与故障处理工具
     1）jps
-       虚拟机进程状况工具    
+       虚拟机进程状况工具 
+       [bonaparte@master ~]jps -l
+       845240 bonaparte-core-1.0-SNAPSHOT.jar
+       1596196 bonaparte-quartz-0.0.1-SNAPSHOT.jar
+       1134204 sun.tools.jps.Jps
+
     2) jstat
        虚拟机统计信息监控工具
+       [karakal@master ~]$ jstat -gc 845240
+ S0C    S1C    S0U    S1U      EC       EU        OC         OU       MC     MU    CCSC   CCSU   YGC     YGCT    FGC    FGCT     GCT   
+45056.0 30208.0  0.0    0.0   1366528.0 819899.8  774656.0   72906.6   59096.0 57999.4 6912.0 6622.8     15    0.375   3      0.566    0.940
+其中最后五项，分别是young gc的次数，young gc的时间，full gc的次数，full gc的时间，gc的总时间。
+
+       [karakal@master ~]$ jstat -gccapacity 845240
+ NGCMN    NGCMX     NGC     S0C   S1C       EC      OGCMN      OGCMX       OGC         OC       MCMN     MCMX      MC     CCSMN    CCSMX     CCSC    YGC    FGC 
+344064.0 5497344.0 1494528.0 45056.0 30208.0 1366528.0   688128.0 10995200.0   774656.0   774656.0      0.0 1101824.0  59096.0      0.0 1048576.0   6912.0     15     3
+统计gc信息统计
+
+     linux jstat 命令的使用
+     https://blog.csdn.net/skyler945/article/details/45313157
+
     3) jinfo
        Java配置信息工具
+       JVM jinfo命令(Java Configuration Info) 使用方法
+       https://www.linuxidc.com/Linux/2017-12/149565.htm
+       GC日志分析
+       我们再对数据做一个简单的分析
+7.429: [GC 7.429: [ParNew: 45278K->6723K(47808K), 0.0251993 secs] 46974K->10551K(252608K), 0.0252421 secs] 
+从这条GC记录中我们可以看到：
+Young GC回收了 45278-6723 =38555K的内存
+Heap区通过这次回收总共减少了 46974-10551=36423K的内存。
+38555-36423=2132K说明通过该次Young GC有2132K的内存被移动到了Old Gen，
+
     5) jmap
        Java内存映像工具
+       jmap [options] pid
+-dump:[live,]format=b,file=<filename>  --dump堆到文件,live指明是活着的对象,file指定文件名
+       jmap -dump:live,file=partycore.map 845240
+
+       因为在dump:live前会进行full gc，因此不加live的堆大小要大于加live堆的大小
+       -finalizerinfo  打印等待回收对象的信息
+       jmap -finalizerinfo 845240
+
+       对象统计
+       jmap -histo 845240
+
     6) jhat
        虚拟机堆转储快照分析工具
+       jhat分析jmap -dump生成的堆快照文件
+       jhat /home/karakal/partycore.map
+
     7) jstack
        Java堆栈跟踪工具
+       在线程中，有一些 JVM内部的后台线程，来执行譬如垃圾回收，或者低内存的检测等等任务，这
+       些线程往往在JVM初始化的时候就存在
+
     8) jconsole
        Java监视与管理控制台
+</pre>
+
+![](https://i.imgur.com/h9xBiuz.png)
+
+<pre>
+Java虚拟机中内置了两个即时编译器，分别为Client和Server或则叫C1和C2.
+
+      C1编译器将字节码编译为本地代码，进行简单可靠的优化，C2编译器则会启动一些编译耗时较长
+      的优化，甚至会根据性能监控信息进行一些不可靠的激进优化，C1和C2都是编译一些热点代码（
+      多次调用的方法或者多次执行的循环体），因此在编译前，首先要进行热点探测，HotSpot虚拟机
+      中使用的是基于计数器的热点探测技术。
+      
+      它为每个方法都准备了两个计数器，方法调用计数器和回边计数器。
+
+      方法调用计数器统计的并不是方法被调用的绝对次数，而是一个相对的执行频率，即一段时间内方
+      法被调用的次数。当超过一定的时间限度，如果方法调用次数仍然不足以让它提交给即时编译器，
+      那这个方法的调用计数器就会衰减一般，这个过程称为方法调用计数器热度的衰减。
+
+      回边计数器统计的是一个方法中循环体代码执行的次数，它没有热度衰减。建立回边计数器统计的
+      目的是为了处罚OSR编译，OSR即栈上替换，也就是编译发生在方法执行过程之中。
+
+      C1编译过程
+		对于C1来说，它是一个简单快速的三段式编译器，主要关注点在于局部性的优化，而放弃了许多
+        耗时较长的全局优化。
+		    1、在字节码上进行一些基础优化，方法内联、常量传播。
+		    2、将字节码构造成高级中间表示HIR（静态单分配），再次进行一些优化，空值检查消除、
+              范围检查消除等。
+		    3、将HIR转换成LIR，寄存器分配、窥孔优化、机器码生成
+
+      C2编译过程
+            C2会执行所有的经典优化动作，如无用代码删除、循环展开、循环表达式外提、消除公共子
+            表达式、常量传播、基本快重排序等。
+</pre>
+
+<pre>
+一个JVM 启动之后，自己会启动一些线程
+
+     signal dispather： 前面我们提到第一个Attach Listener线程的职责是接收外部jvm命令，
+           当命令接收成功后，会交给signal dispather线程去进行分发到各个不同的模块处理命
+           令，并且返回处理结果。signal dispather线程也是在第一次接收外部jvm命令时，进行
+           初始化工作。
+
+     Finalizer：  用来执行所有用户Finalizer 方法的线程
+
+     Reference Handler ：它主要用于处理引用对象本身（软引用、弱引用、虚引用）的垃圾回收问题。
 </pre>
 
 <pre>
